@@ -1,13 +1,14 @@
 package com.safetynet.alerts.service.impl;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.repository.FirestationRepository;
+import com.safetynet.alerts.service.FirestationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Iterator;
 import java.util.List;
 
 @Service
-public class FirestationServiceImpl {
+public class FirestationServiceImpl implements FirestationService {
 
     @Autowired
     private FirestationRepository firestationRepository;

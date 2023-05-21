@@ -1,7 +1,6 @@
 package com.safetynet.alerts.controller;
-
 import com.safetynet.alerts.model.Medicalrecord;
-import com.safetynet.alerts.service.MedicalrecordService;
+import com.safetynet.alerts.service.impl.MedicalrecordServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,36 +22,36 @@ import java.util.List;
 public class MedicalrecordController {
 
     @Autowired
-    MedicalrecordService medicalrecordService;
+    MedicalrecordServiceImpl medicalrecordServiceImpl;
 
     @PostMapping
     public void addMedicalrecord(@RequestBody Medicalrecord medicalrecord) {
         log.info("Creation de la personne {}", medicalrecord);
 
-        medicalrecordService.add(medicalrecord);
+        medicalrecordServiceImpl.add(medicalrecord);
     }
 
     @GetMapping
     public List<Medicalrecord> getAll() {
         log.info("chercher tous les dossiers medicales ");
-        return medicalrecordService.getAll();
+        return medicalrecordServiceImpl.getAll();
     }
 
     @DeleteMapping("/{firstName}/{lastName}")
     public void deleteMedicalrecord(@RequestBody Medicalrecord medicalrecord, @PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
         log.info("Supprimer un dossier medicale par prenom = {} && par nom ={}", firstName, lastName);
-        medicalrecordService.deleteMeicalrecordByFirstNameLastNameAndNamePosology(firstName, lastName, medicalrecord.getNamePosology());
+        medicalrecordServiceImpl.deleteMeicalrecordByFirstNameLastNameAndNamePosology(firstName, lastName, medicalrecord.getNamePosology());
     }
 
     @PutMapping("/{oldNamePosology}")
     public ResponseEntity<String> updateMedicalrecord(@RequestBody Medicalrecord updateMedicalrecord, @PathVariable("oldNamePosology") String oldNamePosology) {
         log.info("Mise à jour d'un dossier medical par lancien = {}", oldNamePosology);
 
-        List<Medicalrecord> existingMedicalrecord = medicalrecordService.getMedicalrecorByFirstNameAndLastName(updateMedicalrecord.getFirstName(), updateMedicalrecord.getLastName());
+        List<Medicalrecord> existingMedicalrecord = medicalrecordServiceImpl.getMedicalrecorByFirstNameAndLastName(updateMedicalrecord.getFirstName(), updateMedicalrecord.getLastName());
         if (existingMedicalrecord == null) {
             return new ResponseEntity<>("Medicalrecord not found", HttpStatus.NOT_FOUND);
         }
-        medicalrecordService.updateMedicalrecords(updateMedicalrecord, oldNamePosology);
+        medicalrecordServiceImpl.updateMedicalrecords(updateMedicalrecord, oldNamePosology);
 
         return new ResponseEntity<>("Medicalrecord updated successfully", HttpStatus.OK);
 
@@ -61,7 +60,7 @@ public class MedicalrecordController {
     @GetMapping("/findByFirstNameLastNameAndPosology/{firstName}/{lastName}/{namePosology}")
     public Medicalrecord findByFirstNameLastNameAndPosology(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName, @PathVariable("namePosology") String namePosology) {
         log.info("Chercher des dossiers medicales par prénom = {} && par nom = {} ", firstName, lastName);
-        return medicalrecordService.findByFirstNameLastNameAndPosology(firstName, lastName, namePosology);
+        return medicalrecordServiceImpl.findByFirstNameLastNameAndPosology(firstName, lastName, namePosology);
     }
 }
 

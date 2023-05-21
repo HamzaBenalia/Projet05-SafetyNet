@@ -1,9 +1,8 @@
 package com.safetynet.alerts.controller;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.service.DataPopulatorService;
-import com.safetynet.alerts.service.MedicalrecordService;
+import com.safetynet.alerts.service.impl.MedicalrecordServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,11 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
@@ -32,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MedicalrecordControllerTest {
 
     @MockBean
-    MedicalrecordService medicalrecordService;
+    MedicalrecordServiceImpl medicalrecordServiceImpl;
     @MockBean
     private DataPopulatorService dataPopulatorService;
     @Autowired
@@ -52,8 +49,7 @@ public class MedicalrecordControllerTest {
         String json = objectMapper.writeValueAsString(medicalrecord);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andReturn();
-        verify(medicalrecordService, times(1)).add(any(Medicalrecord.class));
-
+        verify(medicalrecordServiceImpl, times(1)).add(any(Medicalrecord.class));
     }
 
     @Test
@@ -63,7 +59,7 @@ public class MedicalrecordControllerTest {
                 new Medicalrecord("Sara", "ben", "Aznol : 200mg", "18/11/1997")
         );
 
-        when(medicalrecordService.getAll()).thenReturn(medicalrecordList);
+        when(medicalrecordServiceImpl.getAll()).thenReturn(medicalrecordList);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/medicalrecord")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -79,7 +75,7 @@ public class MedicalrecordControllerTest {
                 .andExpect(jsonPath("$[1].birthDate").value("18/11/1997"))
                 .andReturn();
 
-        verify(medicalrecordService, times(1)).getAll();
+        verify(medicalrecordServiceImpl, times(1)).getAll();
 
     }
 
@@ -94,7 +90,7 @@ public class MedicalrecordControllerTest {
         List<Medicalrecord> medicalrecordList = new ArrayList<>();
         medicalrecordList.add(medicalrecord);
 
-        doNothing().when(medicalrecordService).deleteMeicalrecordByFirstNameLastNameAndNamePosology(medicalrecord.getFirstName(), medicalrecord.getLastName(), medicalrecord.getNamePosology());
+        doNothing().when(medicalrecordServiceImpl).deleteMeicalrecordByFirstNameLastNameAndNamePosology(medicalrecord.getFirstName(), medicalrecord.getLastName(), medicalrecord.getNamePosology());
 
         // Perform DELETE request
         mockMvc.perform(MockMvcRequestBuilders.delete("/medicalrecord/"+ medicalrecord.getFirstName() +"/" + medicalrecord.getLastName())
@@ -103,7 +99,7 @@ public class MedicalrecordControllerTest {
                 .andExpect(status().isOk());
 
         // Verify that the delete method was called in the medicalrecordService
-        verify(medicalrecordService, times(1)).deleteMeicalrecordByFirstNameLastNameAndNamePosology(medicalrecord.getFirstName(), medicalrecord.getLastName(), medicalrecord.getNamePosology());
+        verify(medicalrecordServiceImpl, times(1)).deleteMeicalrecordByFirstNameLastNameAndNamePosology(medicalrecord.getFirstName(), medicalrecord.getLastName(), medicalrecord.getNamePosology());
     }
 
     @Test
@@ -128,7 +124,7 @@ public class MedicalrecordControllerTest {
         updatedMedicalrecords.add(updatedMedicalrecord);
 
         // Mock behavior of medicalrecordService
-        when(medicalrecordService.getMedicalrecorByFirstNameAndLastName(existingMedicalrecord.getFirstName(), existingMedicalrecord.getLastName()))
+        when(medicalrecordServiceImpl.getMedicalrecorByFirstNameAndLastName(existingMedicalrecord.getFirstName(), existingMedicalrecord.getLastName()))
                 .thenReturn((updatedMedicalrecords));
 
         // Perform PUT request
@@ -138,7 +134,7 @@ public class MedicalrecordControllerTest {
                 .andExpect(status().isOk());
 
         // Verify that the update method was called in the medicalrecordService
-        verify(medicalrecordService, times(1)).updateMedicalrecords(updatedMedicalrecord, oldNamePosology);
+        verify(medicalrecordServiceImpl, times(1)).updateMedicalrecords(updatedMedicalrecord, oldNamePosology);
     }
 
     @Test
@@ -154,7 +150,7 @@ public class MedicalrecordControllerTest {
         medicalrecord.setNamePosology(testNamePosology);
 
         // Mock behavior of medicalrecordService
-        when(medicalrecordService.findByFirstNameLastNameAndPosology(testFirstName, testLastName, testNamePosology)).thenReturn(medicalrecord);
+        when(medicalrecordServiceImpl.findByFirstNameLastNameAndPosology(testFirstName, testLastName, testNamePosology)).thenReturn(medicalrecord);
 
         // Perform GET request
         mockMvc.perform(MockMvcRequestBuilders.get("/medicalrecord" + "/findByFirstNameLastNameAndPosology/{firstName}/{lastName}/{namePosology}", testFirstName, testLastName, testNamePosology))
@@ -164,7 +160,7 @@ public class MedicalrecordControllerTest {
                 .andExpect(jsonPath("$.namePosology").value(testNamePosology));
 
         // Verify that the findByFirstNameLastNameAndPosology method was called in the medicalrecordService
-        verify(medicalrecordService, times(1)).findByFirstNameLastNameAndPosology(testFirstName, testLastName, testNamePosology);
+        verify(medicalrecordServiceImpl, times(1)).findByFirstNameLastNameAndPosology(testFirstName, testLastName, testNamePosology);
     }
 
 

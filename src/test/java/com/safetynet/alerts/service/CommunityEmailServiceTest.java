@@ -1,6 +1,7 @@
 package com.safetynet.alerts.service;
 import com.safetynet.alerts.dto.CommunityEmail;
 import com.safetynet.alerts.repository.CommunityEmailRepository;
+import com.safetynet.alerts.service.impl.CommunityEmailServiceImpl;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,11 +12,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.anyString;
@@ -28,7 +27,7 @@ public class CommunityEmailServiceTest {
 
 
     @InjectMocks
-    CommunityEmailService communityEmailService;
+    CommunityEmailServiceImpl communityEmailServiceImpl;
 
     @Mock
     CommunityEmailRepository communityEmailRepository;
@@ -44,7 +43,7 @@ public class CommunityEmailServiceTest {
 
         CommunityEmail communityEmail = new CommunityEmail("Hamza", "Ben", "Hamza@gmail.com", "Toulouse");
 
-        communityEmailService.addAll(communityEmail);
+        communityEmailServiceImpl.addAll(communityEmail);
 
         Mockito.verify(communityEmailRepository, times(1)).saveEmailCommunity(communityEmailArgumentCaptor.capture());
 
@@ -64,7 +63,7 @@ public class CommunityEmailServiceTest {
 
         when(communityEmailRepository.getAllCommunity()).thenReturn(allCommunityEmail);
 
-        List<CommunityEmail> result = communityEmailService.getCommunity();
+        List<CommunityEmail> result = communityEmailServiceImpl.getCommunity();
         Mockito.verify(communityEmailRepository, times(1)).getAllCommunity();
         assertEquals(2, result.size());
         Assertions.assertTrue(result.contains(communityEmailDoe));
@@ -83,7 +82,7 @@ public class CommunityEmailServiceTest {
         //List<String> strings = new ArrayList<>();
         List<String> allEmails = new ArrayList<>();
 
-        when(communityEmailService.getAllEmails()).thenReturn(allEmails);
+        when(communityEmailServiceImpl.getAllEmails()).thenReturn(allEmails);
 
         List<String> emails = communityEmailRepository.getEmails();
 
@@ -100,7 +99,7 @@ public class CommunityEmailServiceTest {
         communityEmailRepository.saveEmailCommunity(communityEmailHamza);
 
 
-        List<String> results = communityEmailService.getAllCitys();
+        List<String> results = communityEmailServiceImpl.getAllCitys();
 
         Assertions.assertNotNull(results);
         verify(communityEmailRepository, times(1)).getCitys();
@@ -114,7 +113,7 @@ public class CommunityEmailServiceTest {
 
         when(communityEmailRepository.findEmailByCity(anyString())).thenReturn(List.of(mail));
 
-        List<String> results = communityEmailService.getEmailsByCity(city);
+        List<String> results = communityEmailServiceImpl.getEmailsByCity(city);
 
         verify(communityEmailRepository, times(1)).findEmailByCity(cityArgumentCaptor.capture());
         Assertions.assertNotNull(results);

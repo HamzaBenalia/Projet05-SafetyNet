@@ -6,6 +6,7 @@ import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.service.impl.FirestationServiceImpl;
+import com.safetynet.alerts.service.impl.MedicalrecordServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class DataPopulatorService {
     @Autowired
     private FirestationServiceImpl firestationServiceImpl;
     @Autowired
-    private MedicalrecordService medicalrecordService;
+    private MedicalrecordServiceImpl medicalrecordServiceImpl;
     @Autowired
     private AllergyService allergyService;
 
@@ -64,7 +65,7 @@ public class DataPopulatorService {
                         medicalrecord.setFirstName(p.getFirstName());
                         medicalrecord.setLastName(p.getLastName());
                         medicalrecord.setNamePosology(med);
-                        medicalrecordService.add(medicalrecord);
+                        medicalrecordServiceImpl.add(medicalrecord);
                     });
                     m.getAllergies().forEach(allergyCurrent -> {
                         Allergy allergy = new Allergy();

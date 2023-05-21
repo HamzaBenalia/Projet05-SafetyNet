@@ -1,7 +1,7 @@
 package com.safetynet.alerts.service;
-
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.repository.MedicalrecordRepository;
+import com.safetynet.alerts.service.impl.MedicalrecordServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,11 +11,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.anyString;
@@ -37,7 +35,7 @@ public class MedicalrecordServiceTest {
     @Captor
     private ArgumentCaptor<String> lastNameArgumentCaptor;
     @InjectMocks
-    private MedicalrecordService medicalrecordService;
+    private MedicalrecordServiceImpl medicalrecordServiceImpl;
     @Mock
     private MedicalrecordRepository medicalrecordRepository;
     @Mock
@@ -49,7 +47,7 @@ public class MedicalrecordServiceTest {
         Medicalrecord medicalrecord = new Medicalrecord("Hamza", "Ben", "Doliprane : 200mg", "16/01/1995");
         //when(medicalrecordRepository.getAll()).thenReturn(new ArrayList<>());
 
-        medicalrecordService.add(medicalrecord);
+        medicalrecordServiceImpl.add(medicalrecord);
 
         Mockito.verify(medicalrecordRepository, times(1)).save(medicalrecordArgumentCaptor.capture());
 
@@ -65,7 +63,7 @@ public class MedicalrecordServiceTest {
         List<Medicalrecord> allMedicalrecords = Arrays.asList(medicalrecord1, medicalrecord2);
         when(medicalrecordRepository.getAll()).thenReturn(allMedicalrecords);
 
-        List<Medicalrecord> result = medicalrecordService.getAll();
+        List<Medicalrecord> result = medicalrecordServiceImpl.getAll();
         Mockito.verify(medicalrecordRepository, times(1)).getAll();
         assertEquals(2, result.size());
         Assertions.assertTrue(result.contains(medicalrecord1));
@@ -81,9 +79,9 @@ public class MedicalrecordServiceTest {
         medicalrecordRepository.save(medicalrecord1);
         medicalrecordList.add(medicalrecord1);
 
-        when(medicalrecordService.getMedicalrecorByFirstNameAndLastName("John", "Doe")).thenReturn(medicalrecordList);
+        when(medicalrecordServiceImpl.getMedicalrecorByFirstNameAndLastName("John", "Doe")).thenReturn(medicalrecordList);
 
-        List<Medicalrecord> result = medicalrecordService.getMedicalrecorByFirstNameAndLastName("John", "Doe");
+        List<Medicalrecord> result = medicalrecordServiceImpl.getMedicalrecorByFirstNameAndLastName("John", "Doe");
 
         // Verify that the correct medical record was returned
         Assertions.assertNotNull(result);
@@ -98,7 +96,7 @@ public class MedicalrecordServiceTest {
     public void testDeleteMedicalRecordByFirstNameLastNameAndNamePosology() {
 
         doNothing().when(medicalrecordRepository).deleteMedicalrecordByFirstNameLastNameAndPosology(anyString(),anyString(),anyString());
-        medicalrecordService.deleteMeicalrecordByFirstNameLastNameAndNamePosology("Hamza", "Benalia", "Doliprane : 200mg");
+        medicalrecordServiceImpl.deleteMeicalrecordByFirstNameLastNameAndNamePosology("Hamza", "Benalia", "Doliprane : 200mg");
         verify(medicalrecordRepository,times(1)).deleteMedicalrecordByFirstNameLastNameAndPosology(firstNameArgumentCaptor.capture(),
                 lastNameArgumentCaptor.capture(), namePosologyArgumentCaptor.capture());
         Assertions.assertEquals("Hamza",firstNameArgumentCaptor.getValue());
@@ -114,7 +112,7 @@ public class MedicalrecordServiceTest {
         String oldNamePosology = "Doliprane : 200mg";
 
         // Appeler la méthode à tester
-        medicalrecordService.updateMedicalrecords(medicalrecordToUpdate,oldNamePosology);
+        medicalrecordServiceImpl.updateMedicalrecords(medicalrecordToUpdate,oldNamePosology);
 
         // Vérifier que la méthode updateMedicalrecords a été appelée avec les bons paramètres
         verify(medicalrecordRepository).updateMedicalrecords(medicalrecordArgumentCaptor.capture(), namePosologyArgumentCaptor.capture());
@@ -134,9 +132,9 @@ public class MedicalrecordServiceTest {
 
         medicalrecordRepository.save(medicalrecord1);
 
-        when(medicalrecordService.findByFirstNameLastNameAndPosology("John", "Doe", "Aspirin")).thenReturn(medicalrecord1);
+        when(medicalrecordServiceImpl.findByFirstNameLastNameAndPosology("John", "Doe", "Aspirin")).thenReturn(medicalrecord1);
 
-        Medicalrecord result = medicalrecordService.findByFirstNameLastNameAndPosology("John", "Doe", "Aspirin");
+        Medicalrecord result = medicalrecordServiceImpl.findByFirstNameLastNameAndPosology("John", "Doe", "Aspirin");
 
         // Verify that the correct medical record was returned
         Assertions.assertNotNull(result);

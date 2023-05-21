@@ -1,56 +1,16 @@
 package com.safetynet.alerts.service;
-
 import com.safetynet.alerts.dto.CommunityEmail;
-import com.safetynet.alerts.repository.CommunityEmailRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+public interface CommunityEmailService {
 
-@Service
-public class CommunityEmailService {
+    public void addAll(CommunityEmail communityEmail);
 
+    public List<CommunityEmail> getCommunity();
 
-    @Autowired
-    private CommunityEmailRepository communityEmailRepository;
+    public List<String> getEmailsByCity(String city);
 
-    public void addAll(CommunityEmail communityEmail) {
-        communityEmailRepository.saveEmailCommunity(communityEmail);
+    public List<String> getAllEmails();
+
+    public List<String> getAllCitys();
+
     }
-
-    public List<CommunityEmail> getCommunity() {
-        return communityEmailRepository.getAllCommunity();
-    }
-
-    public List<String> getEmailsByCity(String city) {
-        return communityEmailRepository.findEmailByCity(city);
-    }
-
-    public List<String> getAllEmails() {
-        return communityEmailRepository.getEmails();
-    }
-
-    public List<String> getAllCitys() {
-        return communityEmailRepository.getCitys();
-    }
-}
-/*
-    public List<CommunityEmail> getAllCommunityEmail(){
-        return communityEmailRepository.getCommunityEmail();
-    }
-
-
-    private List<CommunityEmail> communityEmails; // supposons que vous avez une liste de CommunityEmails chargée depuis un fichier JSON
-
-    public List<String> getEmailsByCity(String city) {
-        List<String> emails = new ArrayList<>();
-        for (CommunityEmail email : communityEmails) {
-            if (email.getCity().equalsIgnoreCase(city)) {
-                emails.add(email.getEmail());
-            }
-        }
-        return emails;
-    }
-}
-
-*/

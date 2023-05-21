@@ -1,10 +1,9 @@
 package com.safetynet.alerts.controller;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.dto.CommunityEmail;
-import com.safetynet.alerts.service.CommunityEmailService;
 import com.safetynet.alerts.service.DataPopulatorService;
 import com.safetynet.alerts.service.PersonService;
+import com.safetynet.alerts.service.impl.CommunityEmailServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -26,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CommunityEmailControllerTest {
 
     @MockBean
-    CommunityEmailService communityEmailService;
+    CommunityEmailServiceImpl communityEmailServiceImpl;
     @MockBean
     private DataPopulatorService dataPopulatorService;
 
@@ -53,7 +51,7 @@ public class CommunityEmailControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        verify(communityEmailService, times(1)).addAll(any(CommunityEmail.class));
+        verify(communityEmailServiceImpl, times(1)).addAll(any(CommunityEmail.class));
     }
 
    /* @Test

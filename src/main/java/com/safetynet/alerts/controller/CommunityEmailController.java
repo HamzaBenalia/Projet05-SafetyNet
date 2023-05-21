@@ -1,7 +1,6 @@
 package com.safetynet.alerts.controller;
-
 import com.safetynet.alerts.dto.CommunityEmail;
-import com.safetynet.alerts.service.CommunityEmailService;
+import com.safetynet.alerts.service.impl.CommunityEmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,29 +17,29 @@ import java.util.List;
 public class CommunityEmailController {
 
     @Autowired
-    private CommunityEmailService communityEmailService;
+    private CommunityEmailServiceImpl communityEmailServiceImpl;
 
     // Endpoint pour obtenir les adresses email de tous les habitants
 
     @PostMapping
     public void saveCommunityEmail(@RequestBody CommunityEmail communityEmail) {
-        communityEmailService.addAll(communityEmail);
+        communityEmailServiceImpl.addAll(communityEmail);
     }
 
 
     @GetMapping("/allemails")
     public List<String> getAllEmails() {
-        return communityEmailService.getAllEmails();
+        return communityEmailServiceImpl.getAllEmails();
     }
 
     @GetMapping("/allcitys")
     public List<String> getAllCitys() {
-        return communityEmailService.getAllCitys();
+        return communityEmailServiceImpl.getAllCitys();
     }
 
     @GetMapping
     public List<String> getEmailsByCity(@RequestParam String city) {
-        return communityEmailService.getEmailsByCity(city);
+        return communityEmailServiceImpl.getEmailsByCity(city);
     }
 }
 
