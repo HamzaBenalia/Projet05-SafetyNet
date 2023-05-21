@@ -3,6 +3,7 @@ package com.safetynet.alerts.service;
 import com.safetynet.alerts.model.Allergy;
 import com.safetynet.alerts.repository.AllergyRepository;
 import com.safetynet.alerts.repository.PersonRepository;
+import com.safetynet.alerts.service.impl.AllergyServiceImpl;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -29,10 +30,10 @@ import static org.mockito.Mockito.when;
 public class AllergyServiceTest {
 
     @InjectMocks
-    AllergyService allergyService;
+    private AllergyServiceImpl allergyServiceImpl;
 
     @Mock
-    AllergyRepository allergyRepository;
+    private AllergyRepository allergyRepository;
 
     @Captor
     private ArgumentCaptor<Allergy> allergyArgumentCaptor;
@@ -49,7 +50,7 @@ public class AllergyServiceTest {
         Allergy allergy = new Allergy("John", "Boyd", "Pollen");
         //when(allergyRepository.getAll()).thenReturn(new ArrayList<>());
 
-        allergyService.add(allergy);
+        allergyServiceImpl.add(allergy);
 
         Mockito.verify(allergyRepository, times(1)).save(allergyArgumentCaptor.capture());
 
@@ -66,13 +67,13 @@ public class AllergyServiceTest {
         Allergy allergy = new Allergy("John", "Doe", "Pollen");
 
         // Add the allergy to the service
-        allergyService.add(allergy);
+        allergyServiceImpl.add(allergy);
 
         // Inject the list of allergies into the class to be tested
         when(allergyRepository.getAll()).thenReturn(Collections.singletonList(allergy));
 
         // Verify that the method getAll() returns the list of allergies
-        List<Allergy> allergies = allergyService.getAll();
+        List<Allergy> allergies = allergyServiceImpl.getAll();
         Assertions.assertEquals(1, allergies.size());
         Assertions.assertEquals("John", allergies.get(0).getFirstName());
         Assertions.assertEquals("Doe", allergies.get(0).getLastName());
@@ -91,7 +92,7 @@ public class AllergyServiceTest {
         //when(allergyRepository.getAll()).thenReturn(allergies);
 
         // Supprimer une allergie
-        allergyService.deleteMeicalrecordByFirstNameLastNameAndNamePosology("John", "Doe", "Pollen");
+        allergyServiceImpl.deleteMeicalrecordByFirstNameLastNameAndNamePosology("John", "Doe", "Pollen");
 
         // Vérifier que l'allergie a bien été supprimée
 
@@ -106,7 +107,7 @@ public class AllergyServiceTest {
         Allergy allergy = new Allergy("John", "Doe", "Pollen");
         doNothing().when(allergyRepository).updateAllergy(any(), any());
 
-        allergyService.updateAllergy(allergy, oldAllergy);
+        allergyServiceImpl.updateAllergy(allergy, oldAllergy);
 
         verify(allergyRepository, times(1)).updateAllergy(allergyArgumentCaptor.capture(), nameAllergyArgumentCaptor.capture());
         Allergy allergyCapture = allergyArgumentCaptor.getValue();

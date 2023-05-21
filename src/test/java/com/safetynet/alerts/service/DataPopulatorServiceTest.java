@@ -9,6 +9,7 @@ import com.safetynet.alerts.model.Allergy;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.service.impl.FirestationServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,7 +28,7 @@ public class DataPopulatorServiceTest {
     @Mock
     private PersonService personService;
     @Mock
-    private FirestationService firestationService;
+    private FirestationServiceImpl firestationServiceImpl;
     @Mock
     private MedicalrecordService medicalrecordService;
     @Mock
@@ -58,14 +59,14 @@ public class DataPopulatorServiceTest {
         initData.setPersons(Arrays.asList(personData));
 
         doNothing().when(personService).add(any());
-        doNothing().when(firestationService).add(any());
+        doNothing().when(firestationServiceImpl).add(any());
         doNothing().when(medicalrecordService).add(any());
         doNothing().when(allergyService).add(any());
 
         dataPopulatorService.loadData(initData);
 
         verify(personService).add(any(Person.class));
-        verify(firestationService).add(any(Firestation.class));
+        verify(firestationServiceImpl).add(any(Firestation.class));
         verify(medicalrecordService).add(any(Medicalrecord.class));
         verify(allergyService).add(any(Allergy.class));
     }

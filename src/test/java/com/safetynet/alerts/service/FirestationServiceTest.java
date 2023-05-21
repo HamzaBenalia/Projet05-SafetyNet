@@ -4,6 +4,7 @@ package com.safetynet.alerts.service;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.repository.FirestationRepository;
 import com.safetynet.alerts.repository.PersonRepository;
+import com.safetynet.alerts.service.impl.FirestationServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,11 +32,10 @@ import static org.mockito.Mockito.when;
 public class FirestationServiceTest {
     @Captor
     ArgumentCaptor<Firestation> firestationArgumentCaptor;
-
     @Captor
     ArgumentCaptor<String> firestationNumberArgumentCaptor;
     @InjectMocks
-    FirestationService firestationService;
+    FirestationServiceImpl firestationServiceImpl;
     @Mock
     private FirestationRepository firestationRepository;
     @Mock
@@ -46,7 +46,7 @@ public class FirestationServiceTest {
         Firestation firestation = new Firestation("Toulouse", "1");
         when(firestationRepository.getAll()).thenReturn(new ArrayList<>());
 
-        firestationService.add(firestation);
+        firestationServiceImpl.add(firestation);
 
         Mockito.verify(firestationRepository, times(1)).save(firestationArgumentCaptor.capture());
 
@@ -66,7 +66,7 @@ public class FirestationServiceTest {
 
         when(firestationRepository.getAll()).thenReturn(allFirestations);
 
-        List<Firestation> result = firestationService.getAll();
+        List<Firestation> result = firestationServiceImpl.getAll();
         Mockito.verify(firestationRepository, times(1)).getAll();
         assertEquals(2, result.size());
         Assertions.assertTrue(result.contains(firestation1));
@@ -89,10 +89,10 @@ public class FirestationServiceTest {
         firestationRepository.save(firestation2);
 
 
-        when(firestationService.getAll()).thenReturn(firestationList);
+        when(firestationServiceImpl.getAll()).thenReturn(firestationList);
 
-        Firestation result1 = firestationService.getFirestationByAddress("123 Main St");
-        Firestation result2 = firestationService.getFirestationByAddress("13 route LosAngeles");
+        Firestation result1 = firestationServiceImpl.getFirestationByAddress("123 Main St");
+        Firestation result2 = firestationServiceImpl.getFirestationByAddress("13 route LosAngeles");
 
         assertNotNull(result1);
         assertNull(result2);
@@ -115,7 +115,7 @@ public class FirestationServiceTest {
         firestationList.add(firestation2);
         when(firestationRepository.getAll()).thenReturn(firestationList);
 
-        firestationService.deleteFirestationByAddress("1st Avenue");
+        firestationServiceImpl.deleteFirestationByAddress("1st Avenue");
 
         assertEquals(1, firestationList.size());
     }
@@ -125,7 +125,7 @@ public class FirestationServiceTest {
         // Create a list of firestations to use as test data
         Firestation firestation = new Firestation("1st Avenue", "1");
 
-        firestationService.updateFirestation(firestation);
+        firestationServiceImpl.updateFirestation(firestation);
 
         verify(firestationRepository).updateFirestation(firestationArgumentCaptor.capture());
         Firestation firestationCapture = firestationArgumentCaptor.getValue();
@@ -141,13 +141,12 @@ public class FirestationServiceTest {
 
         when(firestationRepository.getAdresseByStation(anyString())).thenReturn(List.of(address));
 
-        List<String> result = firestationService.getFirestationAddressByStation(stationNumber);
+        List<String> result = firestationServiceImpl.getFirestationAddressByStation(stationNumber);
 
         verify(firestationRepository).getAdresseByStation(firestationNumberArgumentCaptor.capture());
         Assertions.assertEquals(stationNumber, firestationNumberArgumentCaptor.getValue());
         Assertions.assertEquals(1, result.size());
         Assertions.assertEquals(address, result.get(0));
 }
-
 
 }

@@ -15,8 +15,8 @@ import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.service.AllergyService;
 import com.safetynet.alerts.service.DataPopulatorService;
-import com.safetynet.alerts.service.FirestationService;
 import com.safetynet.alerts.service.PersonService;
+import com.safetynet.alerts.service.impl.FirestationServiceImpl;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -56,7 +56,7 @@ public class PersonControllerTest {
     @MockBean
     private PersonService personService;
     @MockBean
-    private FirestationService firestationService;
+    private FirestationServiceImpl firestationServiceImpl;
     @MockBean
     private DataPopulatorService dataPopulatorService;
     @MockBean

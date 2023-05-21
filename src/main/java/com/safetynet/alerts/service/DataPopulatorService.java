@@ -5,6 +5,7 @@ import com.safetynet.alerts.model.Allergy;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.service.impl.FirestationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class DataPopulatorService {
     @Autowired
     private PersonService personService;
     @Autowired
-    private FirestationService firestationService;
+    private FirestationServiceImpl firestationServiceImpl;
     @Autowired
     private MedicalrecordService medicalrecordService;
     @Autowired
@@ -50,7 +51,7 @@ public class DataPopulatorService {
             String address = f.getAddress();
             String stationNumber = f.getStation();
             Firestation firestation = new Firestation(address, stationNumber);
-            firestationService.add(firestation);
+            firestationServiceImpl.add(firestation);
         });
 
         initData.getMedicalrecords().forEach(m -> {

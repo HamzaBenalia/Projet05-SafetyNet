@@ -1,10 +1,9 @@
 package com.safetynet.alerts.controller;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.service.DataPopulatorService;
-import com.safetynet.alerts.service.FirestationService;
 import com.safetynet.alerts.service.PersonService;
+import com.safetynet.alerts.service.impl.FirestationServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
@@ -16,11 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static com.safetynet.alerts.controller.FirestationController.PATH;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
@@ -34,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class FirestationControllerTest {
 
     @MockBean
-    private FirestationService firestationService;
+    private FirestationServiceImpl firestationServiceImpl;
     @MockBean
     private PersonService personService;
     @MockBean
@@ -58,7 +55,7 @@ public class FirestationControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        Mockito.verify(firestationService, times(1)).add(ArgumentMatchers.any(Firestation.class));
+        Mockito.verify(firestationServiceImpl, times(1)).add(ArgumentMatchers.any(Firestation.class));
 
     }
 
@@ -70,7 +67,7 @@ public class FirestationControllerTest {
                 new Firestation("20 rue Toulouse", "2")
         );
 
-        when(firestationService.getAll()).thenReturn(firestationList);
+        when(firestationServiceImpl.getAll()).thenReturn(firestationList);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/firestation/all")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -82,7 +79,7 @@ public class FirestationControllerTest {
                 .andExpect(jsonPath("$[1].station").value("2"))
                 .andReturn();
 
-        Mockito.verify(firestationService, times(1)).getAll();
+        Mockito.verify(firestationServiceImpl, times(1)).getAll();
 
 
     }
@@ -101,14 +98,14 @@ public class FirestationControllerTest {
         firestationList.add(firestation);
 
         // Mock behavior of firestationService
-        doNothing().when(firestationService).deleteFirestationByAddress(testAddress);
+        doNothing().when(firestationServiceImpl).deleteFirestationByAddress(testAddress);
 
         // Perform DELETE request
         mockMvc.perform(MockMvcRequestBuilders.delete(PATH + "/{123 Main st}", testAddress))
                 .andExpect(status().isOk());
 
         // Verify that the delete method was called in the firestationService
-        Mockito.verify(firestationService, times(1)).deleteFirestationByAddress(testAddress);
+        Mockito.verify(firestationServiceImpl, times(1)).deleteFirestationByAddress(testAddress);
 
 
     }
@@ -125,7 +122,7 @@ public class FirestationControllerTest {
         updatedFirestation.setAddress("123 Main St");
 
         // Mock behavior of firestationService
-        when(firestationService.getFirestationByAddress(existingFirestation.getAddress())).thenReturn(updatedFirestation);
+        when(firestationServiceImpl.getFirestationByAddress(existingFirestation.getAddress())).thenReturn(updatedFirestation);
 
         // Perform PUT request
         mockMvc.perform(MockMvcRequestBuilders.put(PATH)
@@ -135,7 +132,7 @@ public class FirestationControllerTest {
                 .andExpect(content().string("Firestation updated successfully"));
 
         // Verify that the update method was called in the firestationService
-        Mockito.verify(firestationService, times(1)).updateFirestation(updatedFirestation);
+        Mockito.verify(firestationServiceImpl, times(1)).updateFirestation(updatedFirestation);
     }
 
 
