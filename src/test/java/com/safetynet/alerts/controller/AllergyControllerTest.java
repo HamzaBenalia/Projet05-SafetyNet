@@ -1,9 +1,8 @@
 package com.safetynet.alerts.controller;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.model.Allergy;
 import com.safetynet.alerts.service.AllergyService;
-import com.safetynet.alerts.service.DataPopulatorService;
+import com.safetynet.alerts.service.impl.DataPopulatorServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import java.util.Arrays;
 import java.util.List;
-
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -29,7 +26,7 @@ public class AllergyControllerTest {
     @MockBean
     AllergyService allergyService;
     @MockBean
-    private DataPopulatorService dataPopulatorService;
+    private DataPopulatorServiceImpl dataPopulatorServiceImpl;
     @Autowired
     ObjectMapper objectMapper;
     @Autowired

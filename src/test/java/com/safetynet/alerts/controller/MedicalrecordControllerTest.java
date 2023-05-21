@@ -1,7 +1,7 @@
 package com.safetynet.alerts.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.model.Medicalrecord;
-import com.safetynet.alerts.service.DataPopulatorService;
+import com.safetynet.alerts.service.impl.DataPopulatorServiceImpl;
 import com.safetynet.alerts.service.impl.MedicalrecordServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class MedicalrecordControllerTest {
     @MockBean
     MedicalrecordServiceImpl medicalrecordServiceImpl;
     @MockBean
-    private DataPopulatorService dataPopulatorService;
+    private DataPopulatorServiceImpl dataPopulatorServiceImpl;
     @Autowired
     ObjectMapper objectMapper;
     @Autowired

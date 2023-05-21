@@ -1,8 +1,8 @@
 package com.safetynet.alerts.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.model.Firestation;
-import com.safetynet.alerts.service.DataPopulatorService;
 import com.safetynet.alerts.service.PersonService;
+import com.safetynet.alerts.service.impl.DataPopulatorServiceImpl;
 import com.safetynet.alerts.service.impl.FirestationServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -35,7 +35,7 @@ public class FirestationControllerTest {
     @MockBean
     private PersonService personService;
     @MockBean
-    private DataPopulatorService dataPopulatorService;
+    private DataPopulatorServiceImpl dataPopulatorServiceImpl;
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired

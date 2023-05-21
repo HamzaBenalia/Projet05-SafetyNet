@@ -1,8 +1,7 @@
 package com.safetynet.alerts;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.dto.loadData.InitData;
-import com.safetynet.alerts.service.DataPopulatorService;
+import com.safetynet.alerts.service.impl.DataPopulatorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -20,7 +19,7 @@ public class AlertsApplication implements CommandLineRunner {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private DataPopulatorService dataPopulatorService;
+    private DataPopulatorServiceImpl dataPopulatorServiceImpl;
 
     public static void main(String[] args) {
         SpringApplication.run(AlertsApplication.class, args);
@@ -28,6 +27,6 @@ public class AlertsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        dataPopulatorService.loadData(objectMapper.readValue(dataResourceFile.getFile(), InitData.class));
+        dataPopulatorServiceImpl.loadData(objectMapper.readValue(dataResourceFile.getFile(), InitData.class));
     }
 }

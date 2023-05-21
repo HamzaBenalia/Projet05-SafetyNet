@@ -14,8 +14,8 @@ import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.service.AllergyService;
-import com.safetynet.alerts.service.DataPopulatorService;
 import com.safetynet.alerts.service.PersonService;
+import com.safetynet.alerts.service.impl.DataPopulatorServiceImpl;
 import com.safetynet.alerts.service.impl.FirestationServiceImpl;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -30,11 +30,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.anyString;
@@ -58,7 +56,7 @@ public class PersonControllerTest {
     @MockBean
     private FirestationServiceImpl firestationServiceImpl;
     @MockBean
-    private DataPopulatorService dataPopulatorService;
+    private DataPopulatorServiceImpl dataPopulatorServiceImpl;
     @MockBean
     private AllergyService allergyService;
 

@@ -1,9 +1,9 @@
 package com.safetynet.alerts.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.dto.CommunityEmail;
-import com.safetynet.alerts.service.DataPopulatorService;
 import com.safetynet.alerts.service.PersonService;
 import com.safetynet.alerts.service.impl.CommunityEmailServiceImpl;
+import com.safetynet.alerts.service.impl.DataPopulatorServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -26,7 +26,7 @@ public class CommunityEmailControllerTest {
     @MockBean
     CommunityEmailServiceImpl communityEmailServiceImpl;
     @MockBean
-    private DataPopulatorService dataPopulatorService;
+    private DataPopulatorServiceImpl dataPopulatorServiceImpl;
 
     @MockBean
     PersonService personService;
