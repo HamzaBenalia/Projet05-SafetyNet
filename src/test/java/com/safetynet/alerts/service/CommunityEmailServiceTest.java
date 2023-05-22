@@ -1,6 +1,6 @@
 package com.safetynet.alerts.service;
 import com.safetynet.alerts.dto.CommunityEmail;
-import com.safetynet.alerts.repository.CommunityEmailRepository;
+import com.safetynet.alerts.repository.impl.CommunityEmailRepositoryImpl;
 import com.safetynet.alerts.service.impl.CommunityEmailServiceImpl;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
@@ -30,7 +30,7 @@ public class CommunityEmailServiceTest {
     CommunityEmailServiceImpl communityEmailServiceImpl;
 
     @Mock
-    CommunityEmailRepository communityEmailRepository;
+    CommunityEmailRepositoryImpl communityEmailRepository;
 
     @Captor
     private ArgumentCaptor<CommunityEmail> communityEmailArgumentCaptor;

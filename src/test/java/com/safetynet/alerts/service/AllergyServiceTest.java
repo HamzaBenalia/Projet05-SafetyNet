@@ -1,8 +1,7 @@
 package com.safetynet.alerts.service;
-
 import com.safetynet.alerts.model.Allergy;
-import com.safetynet.alerts.repository.AllergyRepository;
 import com.safetynet.alerts.repository.PersonRepository;
+import com.safetynet.alerts.repository.impl.AllergyRepositoryImpl;
 import com.safetynet.alerts.service.impl.AllergyServiceImpl;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
@@ -14,11 +13,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
@@ -33,7 +30,7 @@ public class AllergyServiceTest {
     private AllergyServiceImpl allergyServiceImpl;
 
     @Mock
-    private AllergyRepository allergyRepository;
+    private AllergyRepositoryImpl allergyRepository;
 
     @Captor
     private ArgumentCaptor<Allergy> allergyArgumentCaptor;

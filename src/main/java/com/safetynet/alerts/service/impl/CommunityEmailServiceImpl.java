@@ -1,6 +1,6 @@
 package com.safetynet.alerts.service.impl;
 import com.safetynet.alerts.dto.CommunityEmail;
-import com.safetynet.alerts.repository.CommunityEmailRepository;
+import com.safetynet.alerts.repository.impl.CommunityEmailRepositoryImpl;
 import com.safetynet.alerts.service.CommunityEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.List;
 public class CommunityEmailServiceImpl implements CommunityEmailService {
 
     @Autowired
-    private CommunityEmailRepository communityEmailRepository;
+    private CommunityEmailRepositoryImpl communityEmailRepository;
 
     public void addAll(CommunityEmail communityEmail) {
         communityEmailRepository.saveEmailCommunity(communityEmail);

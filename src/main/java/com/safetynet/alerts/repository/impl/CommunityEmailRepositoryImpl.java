@@ -1,13 +1,12 @@
-package com.safetynet.alerts.repository;
-
+package com.safetynet.alerts.repository.impl;
 import com.safetynet.alerts.dto.CommunityEmail;
 import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class CommunityEmailRepository {
+public class CommunityEmailRepositoryImpl {
+
 
     private final List<CommunityEmail> communityEmails = new ArrayList<>();
 
@@ -50,5 +49,3 @@ public class CommunityEmailRepository {
     }
 
 }
-
-

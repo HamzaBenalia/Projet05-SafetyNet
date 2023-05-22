@@ -1,6 +1,7 @@
 package com.safetynet.alerts.repository;
 
 import com.safetynet.alerts.dto.CommunityEmail;
+import com.safetynet.alerts.repository.impl.CommunityEmailRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CommunityEmailRepositoryTest {
 
-    private final CommunityEmailRepository communityEmailRepository = new CommunityEmailRepository();
-    private final CommunityEmail communityEmail = new CommunityEmail();
+    private  CommunityEmailRepositoryImpl communityEmailRepository = new CommunityEmailRepositoryImpl();
+    private  CommunityEmail communityEmail = new CommunityEmail();
 
     @Test
     public void testSaveEmailCommunity() {

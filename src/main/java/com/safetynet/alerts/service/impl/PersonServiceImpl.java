@@ -16,15 +16,14 @@ import com.safetynet.alerts.model.Allergy;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.Person;
-import com.safetynet.alerts.repository.AllergyRepository;
 import com.safetynet.alerts.repository.FirestationRepository;
 import com.safetynet.alerts.repository.MedicalrecordRepository;
 import com.safetynet.alerts.repository.PersonRepository;
+import com.safetynet.alerts.repository.impl.AllergyRepositoryImpl;
 import com.safetynet.alerts.service.PersonService;
 import com.safetynet.alerts.utils.CalculateAge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +40,7 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     private MedicalrecordRepository medicalrecordRepository;
     @Autowired
-    private AllergyRepository allergyRepository;
+    private AllergyRepositoryImpl allergyRepository;
 
     @Autowired
     private FirestationRepository firestationRepository;

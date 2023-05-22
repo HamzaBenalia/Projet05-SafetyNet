@@ -1,6 +1,6 @@
 package com.safetynet.alerts.service.impl;
 import com.safetynet.alerts.model.Allergy;
-import com.safetynet.alerts.repository.AllergyRepository;
+import com.safetynet.alerts.repository.impl.AllergyRepositoryImpl;
 import com.safetynet.alerts.service.AllergyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import java.util.List;
 public class AllergyServiceImpl implements AllergyService {
 
     @Autowired
-    AllergyRepository allergyRepository;
+    AllergyRepositoryImpl allergyRepository;
 
     public void add(Allergy allergy) {
         if (allergyRepository.findByFirstNameLastNameAndAllergy(allergy.getFirstName(), allergy.getLastName(), allergy.getNameAllergy()) != null) {

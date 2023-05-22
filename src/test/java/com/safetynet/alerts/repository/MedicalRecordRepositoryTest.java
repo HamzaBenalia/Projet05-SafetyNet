@@ -1,23 +1,19 @@
 package com.safetynet.alerts.repository;
-
-
 import com.safetynet.alerts.model.Medicalrecord;
+import com.safetynet.alerts.repository.impl.MedicalrecordRepositoryImpl;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class MedicalRecordRepositoryTest {
 
 
 
     @Test
     public void saveTest() {
-        MedicalrecordRepository medicalRecordRepository = new MedicalrecordRepository();
+        MedicalrecordRepositoryImpl medicalRecordRepository = new MedicalrecordRepositoryImpl();
         Medicalrecord medicalRecord = new Medicalrecord("John", "Boyd", "aznol", "13/02/1985");
         medicalRecordRepository.save(medicalRecord);
         assertTrue(medicalRecordRepository.getAll().contains(medicalRecord));
@@ -25,7 +21,7 @@ public class MedicalRecordRepositoryTest {
 
     @Test
     public void testFindByFirstNameLastNameAndPosology() {
-        MedicalrecordRepository medicalRecordRepository = new MedicalrecordRepository();
+        MedicalrecordRepositoryImpl medicalRecordRepository = new MedicalrecordRepositoryImpl();
         Medicalrecord medicalrecord1 = new Medicalrecord("John", "Boyd", "aznol:350mg", "16/02/1995");
         medicalRecordRepository.save(medicalrecord1);
 
@@ -39,7 +35,7 @@ public class MedicalRecordRepositoryTest {
     @Test
     public void testGetAll() {
         // Arrange
-        MedicalrecordRepository medicalrecordRepository = new MedicalrecordRepository();
+        MedicalrecordRepositoryImpl medicalrecordRepository = new MedicalrecordRepositoryImpl();
         Medicalrecord medicalrecord1 = new Medicalrecord("John", "Boyd", "Aznol:350mg", "1602/1995");
         Medicalrecord medicalrecord2 = new Medicalrecord("Jacob", "Boyd", "Doliprane:500mg", "01/01/1970");
         medicalrecordRepository.save(medicalrecord1);
@@ -56,7 +52,7 @@ public class MedicalRecordRepositoryTest {
 
     @Test
     public void testGetMedicalrecordByFirstNameAndLastName() {
-        MedicalrecordRepository medicalrecordRepository = new MedicalrecordRepository();
+        MedicalrecordRepositoryImpl medicalrecordRepository = new MedicalrecordRepositoryImpl();
         Medicalrecord medicalrecord1 = new Medicalrecord("John", "Boyd", "Aznol:350mg", "16/02/1995");
         Medicalrecord medicalrecord2 = new Medicalrecord("John", "Mark", "Doliprane", "02/02/2000");
         Medicalrecord medicalrecord3 = new Medicalrecord("Jane", "Doe", "Amoxiciline", "03/03/1995");
@@ -73,7 +69,7 @@ public class MedicalRecordRepositoryTest {
 
     @Test
     public void testDeleteMedicalrecordByFirstNameLastNameAndPosology() {
-        MedicalrecordRepository medicalRecordRepository = new MedicalrecordRepository();
+        MedicalrecordRepositoryImpl medicalRecordRepository = new MedicalrecordRepositoryImpl();
         Medicalrecord medicalrecord1 = new Medicalrecord("John", "Boyd", "Aznol:350mg", "16/02/1995");
         Medicalrecord medicalrecord2 = new Medicalrecord("John", "Mark", "Doliprane", "02/02/2000");
         medicalRecordRepository.save(medicalrecord1);
@@ -92,7 +88,7 @@ public class MedicalRecordRepositoryTest {
 
     @Test
     public void testUpdateMedicalrecords() {
-        MedicalrecordRepository medicalRecordRepository = new MedicalrecordRepository();
+        MedicalrecordRepositoryImpl medicalRecordRepository = new MedicalrecordRepositoryImpl();
         Medicalrecord medicalrecord = new Medicalrecord("John", "Boyd", "Aznol:350mg", "16/02/1995");
         medicalRecordRepository.save(medicalrecord);
 

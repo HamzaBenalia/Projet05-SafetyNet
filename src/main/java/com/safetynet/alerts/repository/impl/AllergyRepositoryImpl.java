@@ -1,13 +1,12 @@
-package com.safetynet.alerts.repository;
-
+package com.safetynet.alerts.repository.impl;
 import com.safetynet.alerts.model.Allergy;
+import com.safetynet.alerts.repository.AllergyRepository1;
 import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AllergyRepository {
+public class AllergyRepositoryImpl implements AllergyRepository1 {
 
     private final List<Allergy> allergies = new ArrayList<>();
 
@@ -56,4 +55,3 @@ public class AllergyRepository {
     }
 
 }
-

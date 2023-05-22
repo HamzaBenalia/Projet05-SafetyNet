@@ -1,6 +1,7 @@
 package com.safetynet.alerts.repository;
 
 import com.safetynet.alerts.model.Allergy;
+import com.safetynet.alerts.repository.impl.AllergyRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ public class AllergyRepositoryTest {
     @Test
     public void testSave() {
         Allergy allergy = new Allergy("John", "Boyd", "Peanuts");
-        AllergyRepository allergyRepository = new AllergyRepository();
+        AllergyRepositoryImpl allergyRepository = new AllergyRepositoryImpl();
 
         // Save the allergy
         allergyRepository.save(allergy);
@@ -23,7 +24,7 @@ public class AllergyRepositoryTest {
 
     @Test
     public void testFindByFirstNameLastNameAndAllergy() {
-        AllergyRepository allergyRepository = new AllergyRepository();
+        AllergyRepositoryImpl allergyRepository = new AllergyRepositoryImpl();
         allergyRepository.save(new Allergy("John", "Doe", "Peanuts"));
         allergyRepository.save(new Allergy("Jane", "Doe", "Gluten"));
 
@@ -41,7 +42,7 @@ public class AllergyRepositoryTest {
 
     @Test
     public void testGetAll() {
-        AllergyRepository allergyDAO = new AllergyRepository();
+        AllergyRepositoryImpl allergyDAO = new AllergyRepositoryImpl();
         allergyDAO.save(new Allergy("John", "Doe", "Peanuts"));
         allergyDAO.save(new Allergy("Jane", "Doe", "Gluten"));
 
@@ -52,7 +53,7 @@ public class AllergyRepositoryTest {
 
     @Test
     public void testDeleteAllergyByFirstNameLastNameAndAllergy() {
-        AllergyRepository allergyDAO = new AllergyRepository();
+        AllergyRepositoryImpl allergyDAO = new AllergyRepositoryImpl();
         allergyDAO.save(new Allergy("John", "Doe", "Peanuts"));
         allergyDAO.save(new Allergy("Jane", "Doe", "Gluten"));
 
@@ -68,7 +69,7 @@ public class AllergyRepositoryTest {
 
     @Test
     public void testUpdateAllergy() {
-        AllergyRepository allergyDAO = new AllergyRepository();
+        AllergyRepositoryImpl allergyDAO = new AllergyRepositoryImpl();
         allergyDAO.save(new Allergy("John", "Doe", "Peanuts"));
         allergyDAO.save(new Allergy("Jane", "Doe", "Gluten"));
 
@@ -86,7 +87,7 @@ public class AllergyRepositoryTest {
 
     @Test
     public void testFindByFirstNameAndLastName() {
-        AllergyRepository allergyDAO = new AllergyRepository();
+        AllergyRepositoryImpl allergyDAO = new AllergyRepositoryImpl();
         allergyDAO.save(new Allergy("John", "Doe", "Peanuts"));
         allergyDAO.save(new Allergy("Jane", "Doe", "Gluten"));
         allergyDAO.save(new Allergy("John", "Doe", "Shellfish"));

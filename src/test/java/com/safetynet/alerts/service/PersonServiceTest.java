@@ -11,10 +11,10 @@ import com.safetynet.alerts.model.Allergy;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.Person;
-import com.safetynet.alerts.repository.AllergyRepository;
 import com.safetynet.alerts.repository.FirestationRepository;
 import com.safetynet.alerts.repository.MedicalrecordRepository;
 import com.safetynet.alerts.repository.PersonRepository;
+import com.safetynet.alerts.repository.impl.AllergyRepositoryImpl;
 import com.safetynet.alerts.service.impl.PersonServiceImpl;
 import org.hamcrest.MatcherAssert;
 import org.junit.Assert;
@@ -27,13 +27,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
@@ -53,7 +51,7 @@ public class PersonServiceTest {
     @Captor
     private ArgumentCaptor<Person> personArgumentCaptor;
     @Mock
-    private AllergyRepository allergyRepository;
+    private AllergyRepositoryImpl allergyRepository;
     @Mock
     private MedicalrecordRepository medicalrecordRepository;
 

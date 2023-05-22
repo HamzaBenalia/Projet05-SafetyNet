@@ -1,6 +1,7 @@
 package com.safetynet.alerts.repository;
 
 import com.safetynet.alerts.model.Firestation;
+import com.safetynet.alerts.repository.impl.FirestationRepositoryImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -15,7 +16,7 @@ public class FirestationRepositoryTest {
     @Test
     public void testSaveFirestation() {
         // Création d'un objet FirestationRepository
-        FirestationRepository firestationRepository = new FirestationRepository();
+        FirestationRepositoryImpl firestationRepository = new FirestationRepositoryImpl();
 
         // Création d'une Firestation à enregistrer
         Firestation firestation = new Firestation("1", "123 Main St");
@@ -34,7 +35,7 @@ public class FirestationRepositoryTest {
         Firestation firestation2 = new Firestation("2", "address2");
 
         // Ajout des objets à la liste de la FirestationRepository
-        FirestationRepository firestationRepository = new FirestationRepository();
+        FirestationRepositoryImpl firestationRepository = new FirestationRepositoryImpl();
         firestationRepository.save(firestation1);
         firestationRepository.save(firestation2);
 
@@ -48,7 +49,7 @@ public class FirestationRepositoryTest {
     @Test
     public void deleteFirestationTest() {
         // création de l'objet à tester
-        FirestationRepository firestationRepository = new FirestationRepository();
+        FirestationRepositoryImpl firestationRepository = new FirestationRepositoryImpl();
 
         // création de deux casernes de pompiers
         Firestation firestation1 = new Firestation("1", "1st street");
@@ -70,7 +71,7 @@ public class FirestationRepositoryTest {
     @Test
     public void testUpdateFirestation() {
         // Créer une instance de FirestationRepository et ajouter une firestation
-        FirestationRepository firestationRepository = new FirestationRepository();
+        FirestationRepositoryImpl firestationRepository = new FirestationRepositoryImpl();
         Firestation firestation1 = new Firestation("123 Main St", "1");
         firestationRepository.save(firestation1);
 
@@ -88,7 +89,7 @@ public class FirestationRepositoryTest {
 
     @Test
     public void testGetAdresseByStation() {
-        FirestationRepository firestationRepository = new FirestationRepository();
+        FirestationRepositoryImpl firestationRepository = new FirestationRepositoryImpl();
         Firestation firestation1 = new Firestation("123 Main St", "1");
         Firestation firestation2 = new Firestation("456 Oak Ave", "1");
         Firestation firestation3 = new Firestation("789 Elm Rd", "2");
@@ -103,7 +104,7 @@ public class FirestationRepositoryTest {
 
     @Test
     public void testGetFirestationByStation() {
-        FirestationRepository firestationRepository = new FirestationRepository();
+        FirestationRepositoryImpl firestationRepository = new FirestationRepositoryImpl();
         Firestation firestation1 = new Firestation("123 Main St", "1");
         Firestation firestation2 = new Firestation("456 Oak Ave", "2");
         Firestation firestation3 = new Firestation("789 Elm Rd", "3");
@@ -118,7 +119,7 @@ public class FirestationRepositoryTest {
 
     @Test
     public void testgetStationByAddress() {
-        FirestationRepository firestationRepository = new FirestationRepository();
+        FirestationRepositoryImpl firestationRepository = new FirestationRepositoryImpl();
         Firestation firestation1 = new Firestation("123 Main St", "1");
         Firestation firestation2 = new Firestation("456 Oak Ave", "1");
         Firestation firestation3 = new Firestation("789 Elm Rd", "2");
