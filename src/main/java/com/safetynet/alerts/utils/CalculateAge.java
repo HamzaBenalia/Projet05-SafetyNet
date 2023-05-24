@@ -1,5 +1,4 @@
 package com.safetynet.alerts.utils;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +14,6 @@ public class CalculateAge {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return LocalDate.parse(date, formatter);
     }
-
 }
 
 

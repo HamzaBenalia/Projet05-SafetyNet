@@ -10,7 +10,7 @@ import java.util.List;
 public class AllergyServiceImpl implements AllergyService {
 
     @Autowired
-    AllergyRepositoryImpl allergyRepository;
+    private AllergyRepositoryImpl allergyRepository;
 
     public void add(Allergy allergy) {
         if (allergyRepository.findByFirstNameLastNameAndAllergy(allergy.getFirstName(), allergy.getLastName(), allergy.getNameAllergy()) != null) {

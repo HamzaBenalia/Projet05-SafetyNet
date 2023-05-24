@@ -9,9 +9,8 @@ import java.util.List;
 @Service
 public class MedicalrecordServiceImpl implements MedicalrecordService {
 
-
     @Autowired
-    MedicalrecordRepository medicalrecordRepository;
+    private MedicalrecordRepository medicalrecordRepository;
 
     public void add(Medicalrecord medicalrecord) {
         if (medicalrecordRepository.findByFirstNameLastNameAndPosology(medicalrecord.getFirstName(), medicalrecord.getLastName(), medicalrecord.getNamePosology()) != null) {

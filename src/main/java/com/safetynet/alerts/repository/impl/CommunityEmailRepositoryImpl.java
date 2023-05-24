@@ -1,14 +1,15 @@
 package com.safetynet.alerts.repository.impl;
 import com.safetynet.alerts.dto.CommunityEmail;
+import com.safetynet.alerts.repository.CommunityEmailRepository;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class CommunityEmailRepositoryImpl {
+public class CommunityEmailRepositoryImpl implements CommunityEmailRepository {
 
 
-    private final List<CommunityEmail> communityEmails = new ArrayList<>();
+    private List<CommunityEmail> communityEmails = new ArrayList<>();
 
 
     public void saveEmailCommunity(CommunityEmail communityEmail) {
@@ -30,7 +31,7 @@ public class CommunityEmailRepositoryImpl {
         return emailList;
     }
 
-    public List<String> getCitys() {
+    public List<String> getCities() {
         List<String> emailList = new ArrayList<>();
         for (CommunityEmail email : communityEmails) {
             if (email.getCity() != null)

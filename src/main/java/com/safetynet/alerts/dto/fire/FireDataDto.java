@@ -1,5 +1,4 @@
 package com.safetynet.alerts.dto.fire;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

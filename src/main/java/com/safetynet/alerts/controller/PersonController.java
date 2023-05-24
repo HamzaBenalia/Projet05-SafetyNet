@@ -1,5 +1,4 @@
 package com.safetynet.alerts.controller;
-
 import com.safetynet.alerts.dto.childAlert.ChildDto;
 import com.safetynet.alerts.dto.fire.FireDto;
 import com.safetynet.alerts.dto.flood.FloodDto;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +69,7 @@ public class PersonController {
     }
 
     @GetMapping("/phoneAlert")
-    public PhoneAlertDto getPhoneByFirestation(@RequestParam("firestationNumber") String firestationNumber) {
+    public PhoneAlertDto getPhoneByFirestation(@RequestParam("firestation") String firestationNumber) {
 
         log.info("Chercher les numéros de téléphones des personnes desservie par la caserne numéro = {}", firestationNumber);
         return personService.getPhonesByFirestation(firestationNumber);

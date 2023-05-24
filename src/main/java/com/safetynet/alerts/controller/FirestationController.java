@@ -1,5 +1,4 @@
 package com.safetynet.alerts.controller;
-
 import com.safetynet.alerts.dto.stationDto.StationInfoDto;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.service.PersonService;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController

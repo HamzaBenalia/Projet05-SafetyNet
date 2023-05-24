@@ -1,5 +1,4 @@
 package com.safetynet.alerts.dto.stationDto;
-
 import lombok.Data;
 
 @Data

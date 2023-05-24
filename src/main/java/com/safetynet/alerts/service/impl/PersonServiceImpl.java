@@ -1,5 +1,4 @@
 package com.safetynet.alerts.service.impl;
-
 import com.safetynet.alerts.dto.childAlert.ChildDataDto;
 import com.safetynet.alerts.dto.childAlert.ChildDto;
 import com.safetynet.alerts.dto.fire.FireDataDto;
@@ -41,7 +40,6 @@ public class PersonServiceImpl implements PersonService {
     private MedicalrecordRepository medicalrecordRepository;
     @Autowired
     private AllergyRepositoryImpl allergyRepository;
-
     @Autowired
     private FirestationRepository firestationRepository;
 

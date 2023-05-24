@@ -41,7 +41,7 @@ public class DataPopulatorServiceImpl implements DataPopulatorService {
                 if (currentPerson.getFirstName().equals(m.getFirstName()) && currentPerson.getLastName().equals(m.getLastName())) {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
                     LocalDate birthdate = LocalDate.parse(m.getBirthdate(), formatter);
-                    String birthdateStr = birthdate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+                    String birthdateStr = birthdate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                     person.setBirthdate(birthdateStr);
                 }
             });

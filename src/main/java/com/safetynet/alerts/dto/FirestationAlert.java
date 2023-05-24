@@ -1,9 +1,7 @@
 package com.safetynet.alerts.dto;
-
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.Person;
 import lombok.Data;
-
 import java.util.List;
 
 @Data

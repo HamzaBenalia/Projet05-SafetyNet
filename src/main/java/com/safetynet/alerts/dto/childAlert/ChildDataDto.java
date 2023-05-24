@@ -1,5 +1,4 @@
 package com.safetynet.alerts.dto.childAlert;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

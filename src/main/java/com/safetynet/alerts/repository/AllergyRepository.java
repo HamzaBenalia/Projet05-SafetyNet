@@ -2,7 +2,7 @@ package com.safetynet.alerts.repository;
 import com.safetynet.alerts.model.Allergy;
 import java.util.List;
 
-public interface AllergyRepository1 {
+public interface AllergyRepository {
 
     public void save(Allergy allergy);
 

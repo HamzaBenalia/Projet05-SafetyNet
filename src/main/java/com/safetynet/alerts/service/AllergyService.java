@@ -1,7 +1,5 @@
 package com.safetynet.alerts.service;
-
 import com.safetynet.alerts.model.Allergy;
-
 import java.util.List;
 
 public interface AllergyService {

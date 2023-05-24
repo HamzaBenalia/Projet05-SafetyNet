@@ -1,5 +1,4 @@
 package com.safetynet.alerts.dto.personInfo;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.safetynet.alerts.model.Allergy;
 import com.safetynet.alerts.model.Medicalrecord;

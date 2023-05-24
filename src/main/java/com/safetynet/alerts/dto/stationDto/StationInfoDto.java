@@ -1,5 +1,4 @@
 package com.safetynet.alerts.dto.stationDto;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
