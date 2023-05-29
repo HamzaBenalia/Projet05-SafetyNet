@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class MedicalRecordRepositoryTest {
 
 
-
     @Test
     public void saveTest() {
         MedicalrecordRepositoryImpl medicalRecordRepository = new MedicalrecordRepositoryImpl();

@@ -6,6 +6,7 @@ import com.safetynet.alerts.dto.personInfo.PersonInfoDto;
 import com.safetynet.alerts.dto.phoneAlert.PhoneAlertDto;
 import com.safetynet.alerts.dto.stationDto.StationInfoDto;
 import com.safetynet.alerts.model.Person;
+
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,8 @@ public interface PersonService {
     Map<String, List<FloodDto>> getResidentsByStationNumber(List<String> stations);
 
     ChildDto getChildrenByAddress(String address);
+
+    List<String> getEmailsByCity(String city);
 }
 
 

@@ -4,15 +4,15 @@ import java.util.List;
 
 public interface FirestationService {
 
-    public void add(Firestation firestation);
+    void add(Firestation firestation);
 
-    public List<Firestation> getAll();
+    List<Firestation> getAll();
 
-    public Firestation getFirestationByAddress(String address);
+    Firestation getFirestationByAddress(String address);
 
-    public void deleteFirestationByAddress(String address);
+    void deleteFirestationByAddress(String address);
 
-    public void updateFirestation(Firestation updateFirestation);
+    void updateFirestation(Firestation updateFirestation);
 
-    public List<String> getFirestationAddressByStation(String stationNumber);
+    List<String> getFirestationAddressByStation(String stationNumber);
 }

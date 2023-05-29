@@ -1,8 +1,8 @@
 package com.safetynet.alerts.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.model.Medicalrecord;
-import com.safetynet.alerts.service.impl.DataPopulatorServiceImpl;
-import com.safetynet.alerts.service.impl.MedicalrecordServiceImpl;
+import com.safetynet.alerts.service.DataPopulatorService;
+import com.safetynet.alerts.service.MedicalrecordService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -29,9 +29,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MedicalrecordControllerTest {
 
     @MockBean
-    MedicalrecordServiceImpl medicalrecordServiceImpl;
+    MedicalrecordService medicalrecordService;
     @MockBean
-    private DataPopulatorServiceImpl dataPopulatorServiceImpl;
+    private DataPopulatorService dataPopulatorService;
     @Autowired
     ObjectMapper objectMapper;
     @Autowired
@@ -49,7 +49,7 @@ public class MedicalrecordControllerTest {
         String json = objectMapper.writeValueAsString(medicalrecord);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andReturn();
-        verify(medicalrecordServiceImpl, times(1)).add(any(Medicalrecord.class));
+        verify(medicalrecordService, times(1)).add(any(Medicalrecord.class));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class MedicalrecordControllerTest {
                 new Medicalrecord("Sara", "ben", "Aznol : 200mg", "18/11/1997")
         );
 
-        when(medicalrecordServiceImpl.getAll()).thenReturn(medicalrecordList);
+        when(medicalrecordService.getAll()).thenReturn(medicalrecordList);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/medicalrecord")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -75,13 +75,12 @@ public class MedicalrecordControllerTest {
                 .andExpect(jsonPath("$[1].birthDate").value("18/11/1997"))
                 .andReturn();
 
-        verify(medicalrecordServiceImpl, times(1)).getAll();
+        verify(medicalrecordService, times(1)).getAll();
 
     }
 
     @Test
     void testDeleteMedicalrecord() throws Exception {
-        // Set up test data
         Medicalrecord medicalrecord = new Medicalrecord();
         medicalrecord.setFirstName("John");
         medicalrecord.setLastName("Doe");
@@ -90,21 +89,18 @@ public class MedicalrecordControllerTest {
         List<Medicalrecord> medicalrecordList = new ArrayList<>();
         medicalrecordList.add(medicalrecord);
 
-        doNothing().when(medicalrecordServiceImpl).deleteMeicalrecordByFirstNameLastNameAndNamePosology(medicalrecord.getFirstName(), medicalrecord.getLastName(), medicalrecord.getNamePosology());
+        doNothing().when(medicalrecordService).deleteMeicalrecordByFirstNameLastNameAndNamePosology(medicalrecord.getFirstName(), medicalrecord.getLastName(), medicalrecord.getNamePosology());
 
-        // Perform DELETE request
         mockMvc.perform(MockMvcRequestBuilders.delete("/medicalrecord/"+ medicalrecord.getFirstName() +"/" + medicalrecord.getLastName())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(medicalrecord)))
                 .andExpect(status().isOk());
 
-        // Verify that the delete method was called in the medicalrecordService
-        verify(medicalrecordServiceImpl, times(1)).deleteMeicalrecordByFirstNameLastNameAndNamePosology(medicalrecord.getFirstName(), medicalrecord.getLastName(), medicalrecord.getNamePosology());
+        verify(medicalrecordService, times(1)).deleteMeicalrecordByFirstNameLastNameAndNamePosology(medicalrecord.getFirstName(), medicalrecord.getLastName(), medicalrecord.getNamePosology());
     }
 
     @Test
     void testUpdateMedicalrecord() throws Exception {
-        // Set up test data
         String oldNamePosology = "Doliprane : 200mg";
 
         Medicalrecord existingMedicalrecord = new Medicalrecord();
@@ -123,23 +119,19 @@ public class MedicalrecordControllerTest {
         List<Medicalrecord> updatedMedicalrecords = new ArrayList<>();
         updatedMedicalrecords.add(updatedMedicalrecord);
 
-        // Mock behavior of medicalrecordService
-        when(medicalrecordServiceImpl.getMedicalrecorByFirstNameAndLastName(existingMedicalrecord.getFirstName(), existingMedicalrecord.getLastName()))
+        when(medicalrecordService.getMedicalrecorByFirstNameAndLastName(existingMedicalrecord.getFirstName(), existingMedicalrecord.getLastName()))
                 .thenReturn((updatedMedicalrecords));
 
-        // Perform PUT request
         mockMvc.perform(MockMvcRequestBuilders.put("/medicalrecord" + "/{oldNamePosology}", oldNamePosology)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedMedicalrecord)))
                 .andExpect(status().isOk());
 
-        // Verify that the update method was called in the medicalrecordService
-        verify(medicalrecordServiceImpl, times(1)).updateMedicalrecords(updatedMedicalrecord, oldNamePosology);
+        verify(medicalrecordService, times(1)).updateMedicalrecords(updatedMedicalrecord, oldNamePosology);
     }
 
     @Test
     void testFindByFirstNameLastNameAndPosology() throws Exception {
-        // Set up test data
         String testFirstName = "John";
         String testLastName = "Doe";
         String testNamePosology = "Doliprane : 200mg";
@@ -149,21 +141,16 @@ public class MedicalrecordControllerTest {
         medicalrecord.setLastName(testLastName);
         medicalrecord.setNamePosology(testNamePosology);
 
-        // Mock behavior of medicalrecordService
-        when(medicalrecordServiceImpl.findByFirstNameLastNameAndPosology(testFirstName, testLastName, testNamePosology)).thenReturn(medicalrecord);
+        when(medicalrecordService.findByFirstNameLastNameAndPosology(testFirstName, testLastName, testNamePosology)).thenReturn(medicalrecord);
 
-        // Perform GET request
         mockMvc.perform(MockMvcRequestBuilders.get("/medicalrecord" + "/findByFirstNameLastNameAndPosology/{firstName}/{lastName}/{namePosology}", testFirstName, testLastName, testNamePosology))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName").value(testFirstName))
                 .andExpect(jsonPath("$.lastName").value(testLastName))
                 .andExpect(jsonPath("$.namePosology").value(testNamePosology));
 
-        // Verify that the findByFirstNameLastNameAndPosology method was called in the medicalrecordService
-        verify(medicalrecordServiceImpl, times(1)).findByFirstNameLastNameAndPosology(testFirstName, testLastName, testNamePosology);
+        verify(medicalrecordService, times(1)).findByFirstNameLastNameAndPosology(testFirstName, testLastName, testNamePosology);
     }
-
-
 }
 
 

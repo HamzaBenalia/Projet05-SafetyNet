@@ -4,12 +4,14 @@ import java.util.List;
 
 public interface AllergyService {
 
-    public void add(Allergy allergy);
+    void add(Allergy allergy);
 
-    public void deleteMeicalrecordByFirstNameLastNameAndNamePosology(String fistName, String lastName, String nameAllergy);
+    Allergy getMedicalrecorByFirstNameAndLastName(String firstName, String lastName, String allergy);
 
-    public void updateAllergy(Allergy updateAllergy, String oldNameAllergy);
+    void deleteMeicalrecordByFirstNameLastNameAndNamePosology(String fistName, String lastName, String nameAllergy);
 
-    public List<Allergy> getAll();
+    void updateAllergy(Allergy updateAllergy, String oldNameAllergy);
+
+    List<Allergy> getAll();
 
 }

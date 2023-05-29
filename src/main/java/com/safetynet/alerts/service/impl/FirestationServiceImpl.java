@@ -13,6 +13,7 @@ public class FirestationServiceImpl implements FirestationService {
     @Autowired
     private FirestationRepository firestationRepository;
 
+    @Override
     public void add(Firestation firestation) {
         if (getFirestationByAddress(firestation.getAddress()) != null) {
             return;
@@ -21,6 +22,7 @@ public class FirestationServiceImpl implements FirestationService {
 
     }
 
+    @Override
     public List<Firestation> getAll() {
         return firestationRepository.getAll();
     }
@@ -36,6 +38,7 @@ public class FirestationServiceImpl implements FirestationService {
         return null;
     }
 
+    @Override
     public void deleteFirestationByAddress(String address) {
         List<Firestation> firestations = firestationRepository.getAll();
         Iterator<Firestation> iterator = firestations.iterator();
@@ -47,10 +50,12 @@ public class FirestationServiceImpl implements FirestationService {
         }
     }
 
+    @Override
     public void updateFirestation(Firestation updateFirestation) {
         firestationRepository.updateFirestation(updateFirestation);
     }
 
+    @Override
     public List<String> getFirestationAddressByStation(String stationNumber) {
         return firestationRepository.getAdresseByStation(stationNumber);
     }

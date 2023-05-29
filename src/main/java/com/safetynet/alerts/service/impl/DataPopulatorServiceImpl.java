@@ -4,9 +4,7 @@ import com.safetynet.alerts.model.Allergy;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.Person;
-import com.safetynet.alerts.service.AllergyService;
-import com.safetynet.alerts.service.DataPopulatorService;
-import com.safetynet.alerts.service.PersonService;
+import com.safetynet.alerts.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
@@ -21,12 +19,13 @@ public class DataPopulatorServiceImpl implements DataPopulatorService {
     @Autowired
     private PersonService personService;
     @Autowired
-    private FirestationServiceImpl firestationServiceImpl;
+    private FirestationService firestationService;
     @Autowired
-    private MedicalrecordServiceImpl medicalrecordServiceImpl;
+    private MedicalrecordService medicalrecordService;
     @Autowired
     private AllergyService allergyService;
 
+    @Override
     public void loadData(InitData initData) {
         List<Person> persons = new ArrayList<>();
         initData.getPersons().forEach(currentPerson -> {
@@ -52,7 +51,7 @@ public class DataPopulatorServiceImpl implements DataPopulatorService {
             String address = f.getAddress();
             String stationNumber = f.getStation();
             Firestation firestation = new Firestation(address, stationNumber);
-            firestationServiceImpl.add(firestation);
+            firestationService.add(firestation);
         });
 
         initData.getMedicalrecords().forEach(m -> {
@@ -65,7 +64,7 @@ public class DataPopulatorServiceImpl implements DataPopulatorService {
                         medicalrecord.setFirstName(p.getFirstName());
                         medicalrecord.setLastName(p.getLastName());
                         medicalrecord.setNamePosology(med);
-                        medicalrecordServiceImpl.add(medicalrecord);
+                        medicalrecordService.add(medicalrecord);
                     });
                     m.getAllergies().forEach(allergyCurrent -> {
                         Allergy allergy = new Allergy();

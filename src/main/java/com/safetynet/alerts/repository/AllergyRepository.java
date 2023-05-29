@@ -4,16 +4,16 @@ import java.util.List;
 
 public interface AllergyRepository {
 
-    public void save(Allergy allergy);
+    void save(Allergy allergy);
 
-    public Allergy findByFirstNameLastNameAndAllergy(String firstName, String lastName, String nameAllergy);
+    Allergy findByFirstNameLastNameAndAllergy(String firstName, String lastName, String nameAllergy);
 
-    public List<Allergy> getAll();
+    List<Allergy> getAll();
 
-    public List<Allergy> deleteAllergyByFirstNameLastNameAndAllergy(String firstName, String lastName, String nameAllergy);
+    List<Allergy> deleteAllergyByFirstNameLastNameAndAllergy(String firstName, String lastName, String nameAllergy);
 
-    public void updateAllergy(Allergy updateAllergy, String oldNameAllergy);
+    void updateAllergy(Allergy updateAllergy, String oldNameAllergy);
 
-    public List<Allergy> findByFirstNameAndLastName(String firstName, String lastName);
+    List<Allergy> findByFirstNameAndLastName(String firstName, String lastName);
 
 }

@@ -1,30 +1,24 @@
 package com.safetynet.alerts.repository;
-
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.repository.impl.FirestationRepositoryImpl;
 import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class FirestationRepositoryTest {
 
     @Test
     public void testSaveFirestation() {
-        // Création d'un objet FirestationRepository
         FirestationRepositoryImpl firestationRepository = new FirestationRepositoryImpl();
 
-        // Création d'une Firestation à enregistrer
         Firestation firestation = new Firestation("1", "123 Main St");
 
-        // Enregistrement de la Firestation
         firestationRepository.save(firestation);
 
-        // Vérification que la Firestation est bien enregistrée
         assertTrue(firestationRepository.getAll().contains(firestation));
     }
 
@@ -34,12 +28,10 @@ public class FirestationRepositoryTest {
         Firestation firestation1 = new Firestation("1", "address1");
         Firestation firestation2 = new Firestation("2", "address2");
 
-        // Ajout des objets à la liste de la FirestationRepository
         FirestationRepositoryImpl firestationRepository = new FirestationRepositoryImpl();
         firestationRepository.save(firestation1);
         firestationRepository.save(firestation2);
 
-        // Vérification que la liste retournée par getAll() contient bien les deux objets créés
         List<Firestation> firestations = firestationRepository.getAll();
         assertEquals(2, firestations.size());
         assertTrue(firestations.contains(firestation1));
@@ -48,21 +40,16 @@ public class FirestationRepositoryTest {
 
     @Test
     public void deleteFirestationTest() {
-        // création de l'objet à tester
         FirestationRepositoryImpl firestationRepository = new FirestationRepositoryImpl();
 
-        // création de deux casernes de pompiers
         Firestation firestation1 = new Firestation("1", "1st street");
         Firestation firestation2 = new Firestation("2", "2nd street");
 
-        // ajout des casernes à la liste
         firestationRepository.save(firestation1);
         firestationRepository.save(firestation2);
 
-        // suppression de la première caserne
         firestationRepository.deleteFirestation(firestation1);
 
-        // vérification que la première caserne a été supprimée et que la deuxième caserne est toujours présente
         List<Firestation> firestations = firestationRepository.getAll();
         assertFalse(firestations.contains(firestation1));
         assertTrue(firestations.contains(firestation2));
@@ -70,18 +57,13 @@ public class FirestationRepositoryTest {
 
     @Test
     public void testUpdateFirestation() {
-        // Créer une instance de FirestationRepository et ajouter une firestation
         FirestationRepositoryImpl firestationRepository = new FirestationRepositoryImpl();
         Firestation firestation1 = new Firestation("123 Main St", "1");
         firestationRepository.save(firestation1);
 
-        // Créer une nouvelle firestation avec la même adresse que la première, mais avec un numéro de station différent
         Firestation updatedFirestation = new Firestation("123 Main St", "2");
-
-        // Mettre à jour la firestation dans le repository
         firestationRepository.updateFirestation(updatedFirestation);
 
-        // Vérifier que la firestation a bien été mise à jour
         List<Firestation> firestations = firestationRepository.getAll();
         assertEquals(1, firestations.size());
         assertEquals(updatedFirestation.getStation(), firestations.get(0).getStation());

@@ -2,6 +2,7 @@ package com.safetynet.alerts.repository.impl;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.repository.AllergyRepository;
 import com.safetynet.alerts.repository.MedicalrecordRepository;
 import com.safetynet.alerts.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,12 @@ import java.util.List;
 @Repository
 public class PersonRepositoryImpl implements PersonRepository {
 
-    private  List<Person> persons = new ArrayList<>();
-    private  List<Firestation> firestations = new ArrayList<>();
-    private  List<Medicalrecord> medicalrecords = new ArrayList<>();
     @Autowired
     MedicalrecordRepository medicalrecordRepository;
-    AllergyRepositoryImpl allergyRepository;
+    AllergyRepository allergyRepository;
+    private final List<Person> persons = new ArrayList<>();
+    private final List<Firestation> firestations = new ArrayList<>();
+    private final List<Medicalrecord> medicalrecords = new ArrayList<>();
 
     public void save(Person person) {
         persons.add(person);

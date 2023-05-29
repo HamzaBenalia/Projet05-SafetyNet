@@ -1,9 +1,7 @@
 package com.safetynet.alerts.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.safetynet.alerts.dto.CommunityEmail;
+import com.safetynet.alerts.service.DataPopulatorService;
 import com.safetynet.alerts.service.PersonService;
-import com.safetynet.alerts.service.impl.CommunityEmailServiceImpl;
-import com.safetynet.alerts.service.impl.DataPopulatorServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -11,70 +9,45 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
+import java.util.Arrays;
+import java.util.List;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest()
 @AutoConfigureMockMvc
 public class CommunityEmailControllerTest {
 
     @MockBean
-    CommunityEmailServiceImpl communityEmailServiceImpl;
-    @MockBean
-    private DataPopulatorServiceImpl dataPopulatorServiceImpl;
-
-    @MockBean
     PersonService personService;
+    @MockBean
+    private DataPopulatorService dataPopulatorService;
+
     @Autowired
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
 
+
     @Test
-    public void communityEmailContoller_createCommunityEmail_returnCreated() throws Exception {
-        CommunityEmail communityEmail = new CommunityEmail();
-        communityEmail.setFirstName("John");
-        communityEmail.setLastName("Doe");
-        communityEmail.setCity("Toulouse");
-        communityEmail.setEmail("Hamza@gmail.com");
+    public void getEmailsByCityTest() throws Exception {
+        String city = "Toulouse";
+        List<String> emails = Arrays.asList("hamza@gmail.com", "john@gmail.com");
 
-        String json = objectMapper.writeValueAsString(communityEmail);
+        when(personService.getEmailsByCity(city)).thenReturn(emails);
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/communityEmail")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        verify(communityEmailServiceImpl, times(1)).addAll(any(CommunityEmail.class));
-    }
-
-   /* @Test
-    public void communityEmailController_getAllCommunityEmailTest_returnAllCommmunityEmail() throws Exception {
-
-        CommunityEmail communityEmail = new CommunityEmail("Hamza", "Ben", "Hamza@gmail.com", "Toulouse");
-
-        List<CommunityEmail> communityEmailList = new ArrayList<>();
-
-        communityEmailList.add(communityEmail);
-
-        List<String> getemails = communityEmailService.getAllEmails();
-
-
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/communityEmail")
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(MockMvcRequestBuilders.get("/communityEmail")
+                        .param("city", city))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].firstName").value("Hamza"))
-                .andExpect(jsonPath("$[0].address").value("Toulouse"))
-                .andReturn();
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0]").value("hamza@gmail.com"))
+                .andExpect(jsonPath("$[1]").value("john@gmail.com"));
 
-        verify(communityEmailService, times(1)).getAllEmails();
-
-    }*/
+        verify(personService, times(1)).getEmailsByCity(city);
+    }
 }

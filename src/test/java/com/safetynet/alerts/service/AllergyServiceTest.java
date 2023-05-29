@@ -1,7 +1,7 @@
 package com.safetynet.alerts.service;
 import com.safetynet.alerts.model.Allergy;
+import com.safetynet.alerts.repository.AllergyRepository;
 import com.safetynet.alerts.repository.PersonRepository;
-import com.safetynet.alerts.repository.impl.AllergyRepositoryImpl;
 import com.safetynet.alerts.service.impl.AllergyServiceImpl;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
@@ -30,7 +30,7 @@ public class AllergyServiceTest {
     private AllergyServiceImpl allergyServiceImpl;
 
     @Mock
-    private AllergyRepositoryImpl allergyRepository;
+    private AllergyRepository allergyRepository;
 
     @Captor
     private ArgumentCaptor<Allergy> allergyArgumentCaptor;
@@ -45,8 +45,6 @@ public class AllergyServiceTest {
     @Test
     public void testAddAllergy() {
         Allergy allergy = new Allergy("John", "Boyd", "Pollen");
-        //when(allergyRepository.getAll()).thenReturn(new ArrayList<>());
-
         allergyServiceImpl.add(allergy);
 
         Mockito.verify(allergyRepository, times(1)).save(allergyArgumentCaptor.capture());
@@ -84,14 +82,7 @@ public class AllergyServiceTest {
         List<Allergy> allergies = new ArrayList<>();
         allergies.add(new Allergy("John", "Doe", "Pollen"));
         allergies.add(new Allergy("Jane", "Doe", "Peanuts"));
-
-
-        //when(allergyRepository.getAll()).thenReturn(allergies);
-
-        // Supprimer une allergie
         allergyServiceImpl.deleteMeicalrecordByFirstNameLastNameAndNamePosology("John", "Doe", "Pollen");
-
-        // Vérifier que l'allergie a bien été supprimée
 
         Assertions.assertFalse(allergies.contains("John"));
     }

@@ -2,7 +2,7 @@ package com.safetynet.alerts.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.model.Allergy;
 import com.safetynet.alerts.service.AllergyService;
-import com.safetynet.alerts.service.impl.DataPopulatorServiceImpl;
+import com.safetynet.alerts.service.DataPopulatorService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class AllergyControllerTest {
     @MockBean
     AllergyService allergyService;
     @MockBean
-    private DataPopulatorServiceImpl dataPopulatorServiceImpl;
+    private DataPopulatorService dataPopulatorService;
     @Autowired
     ObjectMapper objectMapper;
     @Autowired
@@ -73,8 +73,6 @@ public class AllergyControllerTest {
                 .andReturn();
 
         Mockito.verify(allergyService, Mockito.times(1)).getAll();
-
-
     }
 
 }

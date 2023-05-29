@@ -5,7 +5,6 @@ import com.safetynet.alerts.model.Medicalrecord;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 
 @Data

@@ -1,5 +1,4 @@
 package com.safetynet.alerts.service;
-
 import com.safetynet.alerts.dto.childAlert.ChildDto;
 import com.safetynet.alerts.dto.fire.FireDto;
 import com.safetynet.alerts.dto.flood.FloodDto;
@@ -11,10 +10,10 @@ import com.safetynet.alerts.model.Allergy;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.repository.AllergyRepository;
 import com.safetynet.alerts.repository.FirestationRepository;
 import com.safetynet.alerts.repository.MedicalrecordRepository;
 import com.safetynet.alerts.repository.PersonRepository;
-import com.safetynet.alerts.repository.impl.AllergyRepositoryImpl;
 import com.safetynet.alerts.service.impl.PersonServiceImpl;
 import org.hamcrest.MatcherAssert;
 import org.junit.Assert;
@@ -51,7 +50,7 @@ public class PersonServiceTest {
     @Captor
     private ArgumentCaptor<Person> personArgumentCaptor;
     @Mock
-    private AllergyRepositoryImpl allergyRepository;
+    private AllergyRepository allergyRepository;
     @Mock
     private MedicalrecordRepository medicalrecordRepository;
 
@@ -330,7 +329,6 @@ public class PersonServiceTest {
         Assert.assertEquals(personMinor.getFirstName(), result.getPersonStationDtos().get(1).getFirstName());
 
     }
-
 }
 
 

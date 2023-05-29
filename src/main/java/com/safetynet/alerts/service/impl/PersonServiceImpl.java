@@ -15,21 +15,16 @@ import com.safetynet.alerts.model.Allergy;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.repository.AllergyRepository;
 import com.safetynet.alerts.repository.FirestationRepository;
 import com.safetynet.alerts.repository.MedicalrecordRepository;
 import com.safetynet.alerts.repository.PersonRepository;
-import com.safetynet.alerts.repository.impl.AllergyRepositoryImpl;
 import com.safetynet.alerts.service.PersonService;
 import com.safetynet.alerts.utils.CalculateAge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -39,7 +34,7 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     private MedicalrecordRepository medicalrecordRepository;
     @Autowired
-    private AllergyRepositoryImpl allergyRepository;
+    private AllergyRepository allergyRepository;
     @Autowired
     private FirestationRepository firestationRepository;
 
@@ -71,7 +66,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void deleteByFirstNameAndLastName(String firstName, String lastName) {
         List<Person> persons = personRepository.getAll();
-        for (Iterator<Person> iterator = persons.iterator(); iterator.hasNext();) {
+        for (Iterator<Person> iterator = persons.iterator(); iterator.hasNext(); ) {
             Person person = iterator.next();
             if (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
                 iterator.remove();
@@ -245,5 +240,17 @@ public class PersonServiceImpl implements PersonService {
         childDto.setChildren(childDataDtos);
         childDto.setAdults(adults);
         return childDto;
+    }
+
+    @Override
+    public List<String> getEmailsByCity(String city) {
+        List<String> emails = new ArrayList<>();
+        List<Person> persons = personRepository.getAll();
+        for (Person person : persons) {
+            if (city.equals(person.getCity()) && !emails.contains(person.getEmail())) {
+                emails.add(person.getEmail());
+            }
+        }
+        return emails;
     }
 }

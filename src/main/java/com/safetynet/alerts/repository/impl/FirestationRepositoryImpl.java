@@ -8,7 +8,7 @@ import java.util.List;
 @Repository
 public class FirestationRepositoryImpl implements FirestationRepository {
 
-    private final List<Firestation> firestations = new ArrayList<>();
+    private List<Firestation> firestations = new ArrayList<>();
 
 
     public void save(Firestation firestation) {

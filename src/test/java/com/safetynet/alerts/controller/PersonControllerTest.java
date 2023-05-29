@@ -1,5 +1,4 @@
 package com.safetynet.alerts.controller;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,9 +13,9 @@ import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.service.AllergyService;
+import com.safetynet.alerts.service.DataPopulatorService;
+import com.safetynet.alerts.service.FirestationService;
 import com.safetynet.alerts.service.PersonService;
-import com.safetynet.alerts.service.impl.DataPopulatorServiceImpl;
-import com.safetynet.alerts.service.impl.FirestationServiceImpl;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -54,9 +53,9 @@ public class PersonControllerTest {
     @MockBean
     private PersonService personService;
     @MockBean
-    private FirestationServiceImpl firestationServiceImpl;
+    private FirestationService firestationService;
     @MockBean
-    private DataPopulatorServiceImpl dataPopulatorServiceImpl;
+    private DataPopulatorService dataPopulatorService;
     @MockBean
     private AllergyService allergyService;
 
@@ -127,23 +126,18 @@ public class PersonControllerTest {
 
     @Test
     public void testUpdatePerson() throws Exception {
-        // Créer une personne existante pour la mise à jour
         Person existingPerson = new Person("John", "Doe", "123 Main St", "Cupertino", "12345", "555-1234", "johndoe@example.com", "15/01/1997");
 
-        // Créer une personne avec les mises à jour
         Person updatedPerson = new Person("John", "Doe", "456 New St", "Sunnyvale", "54321", "555-5678", "johndoe@gmail.com", "16/01/1995");
 
-        // Configurer le mock pour retourner la personne existante lors de l'appel à personService.getPersonByFirstNameAndLastName()
         when(personService.getPersonByFirstNameAndLastName(existingPerson.getFirstName(), existingPerson.getLastName())).thenReturn(existingPerson);
 
-        // Exécuter la requête PUT avec les données mises à jour
         mockMvc.perform(put("/person")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(updatedPerson)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Person updated successfully"));
 
-        // Vérifier que la méthode personService.updatePerson() a été appelée avec la personne mise à jour
         verify(personService, times(1)).updatePerson(updatedPerson);
     }
 
@@ -156,7 +150,6 @@ public class PersonControllerTest {
         PersonInfoDto personInfoDto = new PersonInfoDto(personDataDto, List.of(allergy), List.of(medicalrecord));
         List<PersonInfoDto> expectedList = List.of(personInfoDto);
 
-        // Mock the service and set expectations
         when(personService.getPersonInfos("John", "Doe")).thenReturn(expectedList);
 
         // Perform the GET request
@@ -166,7 +159,6 @@ public class PersonControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        // Verify the response
         String json = result.getResponse().getContentAsString();
         List<PersonInfoDto> actualList = objectMapper.readValue(json, new TypeReference<List<PersonInfoDto>>() {
         });
@@ -175,7 +167,6 @@ public class PersonControllerTest {
 
     @Test //Amelioration
     public void testGetPhoneByFirestation() throws Exception {
-        // Create some test data
         Person person1 = new Person("John", "Doe", "01/01/1990", "1234 Street", "City", "123456789", "john@mail.com", "16/05/1995");
         Person person2 = new Person("Jane", "Doe", "02/02/1991", "5678 Street", "City", "987654321", "jane@mail.com", "17/03/1997");
         List<Person> persons = Arrays.asList(person1, person2);
@@ -190,16 +181,13 @@ public class PersonControllerTest {
 
         PhoneAlertDto phoneAlertDto = new PhoneAlertDto(phoneAlertDataDtos);
 
-        // Mock the service and set expectations
         when(personService.getPhonesByFirestation("1")).thenReturn(phoneAlertDto);
 
-        // Perform the GET request
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/phoneAlert")
-                        .param("firestationNumber", "1"))
+                        .param("firestation", "1"))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        // Verify the response
         String json = result.getResponse().getContentAsString();
         PhoneAlertDto actualDto = objectMapper.readValue(json, PhoneAlertDto.class);
         assertEquals(phoneAlertDto, actualDto);
@@ -240,7 +228,6 @@ public class PersonControllerTest {
 
         FireDto fireDto = FireDto.builder().fireDataDto(fireDataDto).allergies(List.of(allergy)).medicalrecords(List.of(medicalrecord)).build();
 
-        // Mock behavior of personService
         when(personService.getResidentsByAddress(anyString())).thenReturn(List.of(fireDto));
 
         // Call the method being tested using MockMvc
@@ -252,8 +239,6 @@ public class PersonControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].medicalrecords[0].namePosology").value(fireDto.getMedicalrecords().get(0).getNamePosology()));
 
     }
-
-
 }
 
 

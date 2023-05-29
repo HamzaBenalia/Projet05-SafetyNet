@@ -25,7 +25,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class MedicalrecordServiceTest {
 
-
     @Captor
     private ArgumentCaptor<Medicalrecord> medicalrecordArgumentCaptor;
     @Captor
@@ -39,7 +38,6 @@ public class MedicalrecordServiceTest {
     @Mock
     private MedicalrecordRepository medicalrecordRepository;
     @Mock
-
     private PersonService personService;
 
     @Test

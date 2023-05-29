@@ -9,7 +9,7 @@ import java.util.List;
 public class MedicalrecordRepositoryImpl implements MedicalrecordRepository {
 
 
-    private final List<Medicalrecord> medicalrecords = new ArrayList<>();
+    private  List<Medicalrecord> medicalrecords = new ArrayList<>();
 
     public void save(Medicalrecord medicalrecord) {
         medicalrecords.add(medicalrecord);

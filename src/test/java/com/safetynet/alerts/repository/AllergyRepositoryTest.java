@@ -1,10 +1,8 @@
 package com.safetynet.alerts.repository;
-
 import com.safetynet.alerts.model.Allergy;
 import com.safetynet.alerts.repository.impl.AllergyRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
 
 public class AllergyRepositoryTest {
@@ -13,11 +11,8 @@ public class AllergyRepositoryTest {
     public void testSave() {
         Allergy allergy = new Allergy("John", "Boyd", "Peanuts");
         AllergyRepositoryImpl allergyRepository = new AllergyRepositoryImpl();
-
-        // Save the allergy
         allergyRepository.save(allergy);
 
-        // Ensure that the allergy was added to the list
         Assertions.assertTrue(allergyRepository.getAll().contains(allergy));
     }
 
@@ -28,14 +23,12 @@ public class AllergyRepositoryTest {
         allergyRepository.save(new Allergy("John", "Doe", "Peanuts"));
         allergyRepository.save(new Allergy("Jane", "Doe", "Gluten"));
 
-        // Test finding an allergy that exists
         Allergy foundAllergy = allergyRepository.findByFirstNameLastNameAndAllergy("John", "Doe", "Peanuts");
         Assertions.assertNotNull(foundAllergy);
         Assertions.assertEquals("John", foundAllergy.getFirstName());
         Assertions.assertEquals("Doe", foundAllergy.getLastName());
         Assertions.assertEquals("Peanuts", foundAllergy.getNameAllergy());
 
-        // Test finding an allergy that doesn't exist
         foundAllergy = allergyRepository.findByFirstNameLastNameAndAllergy("Bob", "Smith", "Eggs");
         Assertions.assertNull(foundAllergy);
     }
@@ -46,7 +39,6 @@ public class AllergyRepositoryTest {
         allergyDAO.save(new Allergy("John", "Doe", "Peanuts"));
         allergyDAO.save(new Allergy("Jane", "Doe", "Gluten"));
 
-        // Test getting all allergies
         List<Allergy> allAllergies = allergyDAO.getAll();
         Assertions.assertEquals(2, allAllergies.size());
     }
@@ -57,12 +49,10 @@ public class AllergyRepositoryTest {
         allergyDAO.save(new Allergy("John", "Doe", "Peanuts"));
         allergyDAO.save(new Allergy("Jane", "Doe", "Gluten"));
 
-        // Test deleting an allergy that exists
         List<Allergy> updatedAllergies = allergyDAO.deleteAllergyByFirstNameLastNameAndAllergy("John", "Doe", "Peanuts");
         Assertions.assertEquals(1, updatedAllergies.size());
         Assertions.assertNull(allergyDAO.findByFirstNameLastNameAndAllergy("John", "Doe", "Peanuts"));
 
-        // Test deleting an allergy that doesn't exist
         updatedAllergies = allergyDAO.deleteAllergyByFirstNameLastNameAndAllergy("Bob", "Smith", "Eggs");
         Assertions.assertEquals(1, updatedAllergies.size());
     }
@@ -73,13 +63,11 @@ public class AllergyRepositoryTest {
         allergyDAO.save(new Allergy("John", "Doe", "Peanuts"));
         allergyDAO.save(new Allergy("Jane", "Doe", "Gluten"));
 
-        // Test updating an allergy that exists
         Allergy updatedAllergy = new Allergy("John", "Doe", "Shellfish");
         allergyDAO.updateAllergy(updatedAllergy, "Peanuts");
         Assertions.assertEquals("Shellfish", allergyDAO.findByFirstNameLastNameAndAllergy("John", "Doe", "Shellfish").getNameAllergy());
         Assertions.assertNull(allergyDAO.findByFirstNameLastNameAndAllergy("John", "Doe", "Peanuts"));
 
-        // Test updating an allergy that doesn't exist
         updatedAllergy = new Allergy("Bob", "Smith", "Eggs");
         allergyDAO.updateAllergy(updatedAllergy, "Peanuts");
         Assertions.assertNull(allergyDAO.findByFirstNameLastNameAndAllergy("Bob", "Smith", "Eggs"));
@@ -92,17 +80,14 @@ public class AllergyRepositoryTest {
         allergyDAO.save(new Allergy("Jane", "Doe", "Gluten"));
         allergyDAO.save(new Allergy("John", "Doe", "Shellfish"));
 
-        // Test finding allergies for a first name and last name that exist
         List<Allergy> johnDoeAllergies = allergyDAO.findByFirstNameAndLastName("John", "Doe");
         Assertions.assertEquals(2, johnDoeAllergies.size());
         Assertions.assertTrue(johnDoeAllergies.stream().anyMatch(allergy -> allergy.getNameAllergy().equals("Peanuts")));
         Assertions.assertTrue(johnDoeAllergies.stream().anyMatch(allergy -> allergy.getNameAllergy().equals("Shellfish")));
 
-        // Test finding allergies for a first name and last name that don't exist
         List<Allergy> bobSmithAllergies = allergyDAO.findByFirstNameAndLastName("Bob", "Smith");
         Assertions.assertTrue(bobSmithAllergies.isEmpty());
     }
-
 
 }
 
